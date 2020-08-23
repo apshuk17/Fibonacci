@@ -1,0 +1,23 @@
+language: generic
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t apshuk21/fibonacci-client-only-app -f ./client/Dev.Dockerfile ./client
+
+script:
+  - docker run -e CI-true apshuk21/fibonacci-client-only-app npm run test -- --coverage
+
+after_success:
+  - docker build -t apshuk21/fibonacci-client ./client
+  - docker build -t apshuk21/fibonacci-nginx ./nginx
+  - docker build -t apshuk21/fibonacci-api-server ./server
+  - docker build -t apshuk21/fibonacci-worker ./worker
+  # Login to docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take those images to docker hub
+  - docker push apshuk21/fibonacci-client
+  - docker push apshuk21/fibonacci-nginx
+  - docker push apshuk21/fibonacci-api-server
+  - docker push apshuk21/fibonacci-worker
