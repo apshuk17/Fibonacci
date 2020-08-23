@@ -15,6 +15,8 @@ const fib = index => {
 }
 
 sub.on('message', (channel, message) => {
-    console.log('##mesage', message);
+    console.log(`Message: ${message} on channel ${channel} is arrived`);
     redisClient.hset('values', message, fib(parseInt(message, 10)));
 });
+
+sub.subscribe('insert');

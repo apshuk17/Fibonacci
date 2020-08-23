@@ -19,11 +19,6 @@ const pgClient = new Pool({
   port: keys.pgPort,
 });
 
-const fib = (index) => {
-  if (index < 2) return 1;
-  return fib(index - 1) + fib(index - 2);
-};
-
 pgClient.on("connect", (client) => {
   client
     .query("CREATE TABLE IF NOT EXISTS fibdata (fibindices INT PRIMARY KEY)")
@@ -67,8 +62,7 @@ app.post("/values", async (req, res) => {
   if (parseInt(index, 10) > 40) {
     return res.status(422).send("Index too high");
   }
-  const fibValue = fib(index);
-  redisClient.hset("values", index, fibValue);
+  redisClient.hset("values", index, "Nothing Yet!");
   // Redis pub/sub not working
   redisPublisher.publish("insert", index);
   try {
