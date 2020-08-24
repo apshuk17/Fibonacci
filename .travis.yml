@@ -26,7 +26,7 @@ deploy:
   provider: elasticbeanstalk
   region: ap-south-1
   app: fibonacci-multi-docker
-  env: Fibonacci-env
+  env: FibonacciMultiDocker-env
   bucket_name: elasticbeanstalk-ap-south-1-159560691145
   bucket_path: fibonacci-docker-multi-container
   on:
