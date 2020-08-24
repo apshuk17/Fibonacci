@@ -23,13 +23,12 @@ after_success:
   - docker push apshuk21/fibonacci-worker
 
 deploy:
-  edge: true
   provider: elasticbeanstalk
-  region: "ap-south-1"
-  app: "fibonacci-multi-docker"
-  env: "FibonacciMultiDocker-env"
-  bucket_name: "elasticbeanstalk-ap-south-1-159560691145"
-  bucket_path: "fibonacci-multi-docker"
+  region: ap-south-1
+  app: fibonacci-multi-docker
+  env: Fibonacci-env
+  bucket_name: elasticbeanstalk-ap-south-1-159560691145
+  bucket_path: fibonacci-docker-multi-container
   on:
     branch: master
   access_key_id: $AWS_ACCESS_KEY
